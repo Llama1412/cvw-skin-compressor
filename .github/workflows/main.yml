@@ -1,0 +1,31 @@
+name: Build application using PyInstaller
+
+on: [push, pull_request]
+
+jobs:
+
+  build:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+
+    - name: Install environment
+      run: |
+        py -m venv ./venv
+    - name: Install dependencies
+      run: |
+        ./venv/scripts/activate
+        pip install -r requirements.txt
+    - name: Build binaries
+      run: |
+        ./venv/scripts/activate
+        pyinstaller pyinstaller.spec
+    - uses: actions/upload-artifact@v2
+      with:
+        name: Skin-Compressor
+        path: dist/
