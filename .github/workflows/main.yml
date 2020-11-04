@@ -24,7 +24,7 @@ jobs:
     - name: Build binaries
       run: |
         ./venv/scripts/activate
-        pyinstaller main.py --noconsole
+        pyinstaller main.spec
     - uses: actions/upload-artifact@v2
       with:
         name: Skin-Compressor
